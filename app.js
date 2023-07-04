@@ -6,9 +6,9 @@ const cors = require('cors');
 
 const imagesRouter = require('./controllers/images');
 const middleware = require('./utils/middleware');
-// const logger = require('./utils/logger');
+const logger = require('./utils/logger');
 
-console.log('connecting to', config.MONGODB_URI);
+logger.info('connecting to', config.MONGODB_URI);
 
 app.use(cors());
 app.use(express.json());
