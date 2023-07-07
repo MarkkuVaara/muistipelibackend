@@ -1,5 +1,6 @@
 
 const imagesRouter = require('express').Router();
+// const Image = require('../models/image');
 
 let images = [
     {
@@ -29,6 +30,24 @@ imagesRouter.get('/:id', (req, res, next) => {
     const image = images.filter(image => image.id === id);
 
     res.json(image);
+
+});
+
+imagesRouter.post('/', (req, res) => {
+
+});
+
+imagesRouter.put('/', (req, res) => {
+
+});
+
+imagesRouter.delete('/:id', (req, res, next) => {
+
+    const id = Number(req.params.id);
+
+    images = images.filter(image => image.id !== id);
+
+    res.status(200);
 
 });
 
