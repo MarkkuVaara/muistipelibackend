@@ -1,11 +1,8 @@
 
 const mongoose = require('mongoose');
 
-mongoose.set('strictQuery', false);
-
 const imageSchema = new mongoose.Schema({
-    id: number,
-    image: number,
+    image: Number,
 });
 
 imageSchema.set('toJSON', {

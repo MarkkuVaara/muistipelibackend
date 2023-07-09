@@ -1,25 +1,12 @@
 
 const imagesRouter = require('express').Router();
-// const Image = require('../models/image');
-
-let images = [
-    {
-        id: 1,
-        image: 10001
-    },
-    {
-        id: 2,
-        image: 20202
-    },
-    {
-        id: 3,
-        image: 33335
-    }
-];
+const Image = require('../models/image');
 
 imagesRouter.get('/', (req, res) => {
 
-    res.json(images);
+    Image.find({}).then(images=> {
+        res.json(images);
+    });
 
 });
 
@@ -34,6 +21,22 @@ imagesRouter.get('/:id', (req, res, next) => {
 });
 
 imagesRouter.post('/', (req, res) => {
+
+    const body = req.body;
+
+    if (body.image === undefined) {
+      return res.status(400).json({ error: 'content missing' });
+    }
+
+    const image = new Image({
+        image: body.image,
+    });
+      
+    image.save().then(result => {
+        console.log('Image saved!')
+    });
+
+    res.json(image);
 
 });
 
