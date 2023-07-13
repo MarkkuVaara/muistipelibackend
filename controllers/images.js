@@ -12,11 +12,13 @@ imagesRouter.get('/', (req, res) => {
 
 imagesRouter.get('/:id', (req, res, next) => {
 
-    const id = Number(req.params.id);
-
-    const image = images.filter(image => image.id === id);
-
-    res.json(image);
+    Image.findById(req.params.id).then(image => {
+        if (image) {
+            res.json(image)
+        } else {
+            res.status(404).end()
+        };
+    });
 
 });
 
@@ -33,24 +35,22 @@ imagesRouter.post('/', (req, res) => {
     });
       
     image.save().then(result => {
-        console.log('Image saved!')
+        console.log('Image saved!');
     });
 
     res.json(image);
 
 });
 
-imagesRouter.put('/', (req, res) => {
-
-});
-
 imagesRouter.delete('/:id', (req, res, next) => {
 
-    const id = Number(req.params.id);
-
-    images = images.filter(image => image.id !== id);
-
-    res.status(200);
+    Image.findByIdAndDelete(req.params.id).then(image => {
+        if (image) {
+            res.json(image)
+        } else {
+            res.status(404).end()
+        };
+    });
 
 });
 
