@@ -12,13 +12,18 @@ imagesRouter.get('/', (req, res) => {
 
 imagesRouter.get('/:id', (req, res, next) => {
 
-    Image.findById(req.params.id).then(image => {
-        if (image) {
-            res.json(image)
-        } else {
-            res.status(404).end()
-        };
-    });
+    Image.findById(req.params.id)
+        .then(image => {
+            if (image) {
+                res.json(image)
+            } else {
+                res.status(404).end()
+            };
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).send({ error: 'malformatted id' })
+        });
 
 });
 
@@ -44,13 +49,18 @@ imagesRouter.post('/', (req, res) => {
 
 imagesRouter.delete('/:id', (req, res, next) => {
 
-    Image.findByIdAndDelete(req.params.id).then(image => {
-        if (image) {
-            res.json(image)
-        } else {
-            res.status(404).end()
-        };
-    });
+    Image.findByIdAndDelete(req.params.id)
+        .then(image => {
+            if (image) {
+                res.json(image)
+            } else {
+                res.status(404).end()
+            };
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).send({ error: 'malformatted id' })
+        });
 
 });
 
