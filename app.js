@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 
 const imagesRouter = require('./controllers/images');
+const highscoresRouter = require('./controllers/highscores');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const mongoose = require('mongoose');
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(middleware.requestLogger);
 
 app.use('/images', imagesRouter);
+app.use('/highscores', highscoresRouter);
 
 app.use(middleware.unknownEndpoint);
 
