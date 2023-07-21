@@ -31,5 +31,6 @@ app.use('/images', imagesRouter);
 app.use('/highscores', highscoresRouter);
 
 app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;

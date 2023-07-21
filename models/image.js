@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const imageSchema = new mongoose.Schema({
-    image: Number,
+    image: String,
 });
 
 imageSchema.set('toJSON', {

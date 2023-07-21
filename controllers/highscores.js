@@ -19,10 +19,7 @@ highscoresRouter.get('/:id', (req, res, next) => {
                 res.status(404).end()
             };
         })
-        .catch(error => {
-            console.log(error)
-            res.status(400).send({ error: 'malformatted id' })
-        });
+        .catch(error => next(error));
 
 });
 
@@ -57,10 +54,7 @@ highscoresRouter.delete('/:id', (req, res, next) => {
                 res.status(404).end()
             };
         })
-        .catch(error => {
-            console.log(error)
-            res.status(400).send({ error: 'malformatted id' })
-        });
+        .catch(error => next(error));
 
 });
 
