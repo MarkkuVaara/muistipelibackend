@@ -58,10 +58,4 @@ imagesRouter.delete('/:id', (req, res, next) => {
 
 });
 
-imagesRouter.get('/info', (req, res) => {
-
-    res.send('<h1>Simple muistipeli server</h1>');
-
-});
-
 module.exports = imagesRouter;

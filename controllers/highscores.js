@@ -34,8 +34,9 @@ highscoresRouter.post('/', (req, res) => {
     const highscore = new Highscore({
         name: body.name,
         score: body.score,
+        level: body.level
     });
-      
+
     highscore.save().then(result => {
         console.log('Highscore saved!');
     });

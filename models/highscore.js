@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 
 const highscoreSchema = new mongoose.Schema({
     name: String,
-    score: Number
+    score: Number,
+    level: String
 });
 
 highscoreSchema.set('toJSON', {
