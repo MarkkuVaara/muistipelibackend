@@ -1,29 +1,23 @@
 const highscoresRouter = require('express').Router();
 const Highscore = require('../models/highscore');
 
-highscoresRouter.get('/', (req, res) => {
+highscoresRouter.get('/', async (req, res) => {
 
-    Highscore.find({}).then(highscores=> {
-        res.json(highscores);
-    });
-
-});
-
-highscoresRouter.get('/:id', (req, res, next) => {
-
-    Highscore.findById(req.params.id)
-        .then(highscore => {
-            if (highscore) {
-                res.json(highscore)
-            } else {
-                res.status(404).end()
-            };
-        })
-        .catch(error => next(error));
+    const highscores = await Highscore.find({});
+    
+    res.json(highscores);
 
 });
 
-highscoresRouter.post('/', (req, res) => {
+highscoresRouter.get('/:id', async (req, res, next) => {
+
+    const highscore = await Highscore.findById(req.params.id);
+
+    res.json(highscore);
+
+});
+
+highscoresRouter.post('/', async (req, res) => {
 
     const body = req.body;
 
@@ -37,25 +31,18 @@ highscoresRouter.post('/', (req, res) => {
         level: body.level
     });
 
-    highscore.save().then(result => {
-        console.log('Highscore saved!');
-    });
+    const savedHighscore = await highscore.save();
 
-    res.json(highscore);
+    console.log('Highscore saved!');
+    res.json(savedHighscore);
 
 });
 
-highscoresRouter.delete('/:id', (req, res, next) => {
+highscoresRouter.delete('/:id', async (req, res, next) => {
 
-    Highscore.findByIdAndDelete(req.params.id)
-        .then(highscore => {
-            if (highscore) {
-                res.json(highscore)
-            } else {
-                res.status(404).end()
-            };
-        })
-        .catch(error => next(error));
+    await Highscore.findByIdAndDelete(req.params.id);
+
+    res.status(204).end();
 
 });
 
