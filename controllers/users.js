@@ -3,25 +3,19 @@ const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 
-usersRouter.get('/', (req, res) => {
+usersRouter.get('/', async (req, res) => {
 
-    User.find({}).then(users=> {
-        res.json(users);
-    });
+    const users = await User.find({});
+    
+    res.json(users);
 
 });
 
-usersRouter.get('/:id', (req, res, next) => {
+usersRouter.get('/:id', async (req, res, next) => {
 
-    User.findById(req.params.id)
-        .then(user => {
-            if (user) {
-                res.json(user)
-            } else {
-                res.status(404).end()
-            };
-        })
-        .catch(error => next(error));
+    const user = await User.findById(req.params.id);
+
+    res.json(user);
 
 });
 
@@ -41,25 +35,19 @@ usersRouter.post('/', async (req, res) => {
         passwordHash: passwordHash,
     });
 
-    user.save().then(result => {
-        console.log('User saved!');
-    });
+    const savedUser = await user.save();
+    console.log('User saved!');
 
-    res.json(user);
+    res.json(savedUser);
 
 });
 
-usersRouter.delete('/:id', (req, res, next) => {
+usersRouter.delete('/:id', async (req, res, next) => {
 
-    User.findByIdAndDelete(req.params.id)
-        .then(user => {
-            if (user) {
-                res.json(user)
-            } else {
-                res.status(404).end()
-            };
-        })
-        .catch(error => next(error));
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+    console.log('User deleted!');
+    res.json(deletedUser);
 
 });
 
