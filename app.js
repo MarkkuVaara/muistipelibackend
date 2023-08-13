@@ -3,6 +3,7 @@ const config = require('./utils/config');
 const express = require('express');
 const app = express();
 const cors = require('cors');
+require('express-async-errors');
 
 const imagesRouter = require('./controllers/images');
 const highscoresRouter = require('./controllers/highscores');
