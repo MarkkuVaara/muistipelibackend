@@ -8,6 +8,7 @@ require('express-async-errors');
 const imagesRouter = require('./controllers/images');
 const highscoresRouter = require('./controllers/highscores');
 const usersRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const mongoose = require('mongoose');
@@ -32,6 +33,7 @@ app.use(middleware.requestLogger);
 app.use('/images', imagesRouter);
 app.use('/highscores', highscoresRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
