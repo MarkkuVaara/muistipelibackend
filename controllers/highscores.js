@@ -21,8 +21,8 @@ highscoresRouter.post('/', async (req, res) => {
 
     const body = req.body;
 
-    if (body.score === undefined) {
-      return res.status(400).json({ error: 'score missing' });
+    if (body.score === undefined || body.name === undefined || body.level === undefined) {
+      return res.status(400).json({ error: 'score, name or level missing' });
     }
 
     const highscore = new Highscore({

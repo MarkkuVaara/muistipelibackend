@@ -1,6 +1,19 @@
 
 const imagesRouter = require('express').Router();
 const Image = require('../models/image');
+const jwt = require('jsonwebtoken');
+
+const getTokenFrom = request => {
+
+    const authorization = request.get('authorization');
+
+    if (authorization && authorization.startsWith('Bearer ')) {
+      return authorization.replace('Bearer ', '')
+    };
+
+    return null;
+
+};
 
 imagesRouter.get('/', async (req, res) => {
 
@@ -25,6 +38,11 @@ imagesRouter.post('/', async (req, res) => {
     if (body.image === undefined) {
       return res.status(400).json({ error: 'content missing' });
     }
+    
+    const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET);
+    if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token invalid' });
+    };
 
     const image = new Image({
         image: body.image,
@@ -38,6 +56,11 @@ imagesRouter.post('/', async (req, res) => {
 });
 
 imagesRouter.delete('/:id', async (req, res, next) => {
+
+    const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET);
+    if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token invalid' });
+    };
 
     const deletedImage = await Image.findByIdAndDelete(req.params.id);
 
