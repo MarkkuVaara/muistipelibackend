@@ -31,7 +31,7 @@ imagesRouter.get('/:id', async (req, res, next) => {
 
 });
 
-imagesRouter.post('/', async (req, res) => {
+imagesRouter.post('/', async (req, res, next) => {
 
     const body = req.body;
 
